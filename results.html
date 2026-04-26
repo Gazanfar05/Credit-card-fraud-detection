@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results | Credit Card Fraud Detection</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="container">
+        <div class="brand-row">
+          <div class="brand">
+            <strong>Credit Card Fraud Detection</strong>
+            <span>Model comparison and evaluation</span>
+            <div class="status-badge" aria-label="Model status">
+              <span class="status-dot"></span>
+              Model Ready
+            </div>
+          </div>
+          <nav class="nav" aria-label="Primary">
+            <a href="index.html">Home</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a class="active" href="results.html">Results</a>
+            <a href="predictor.html">Predictor</a>
+            <a href="analysis.html">Analysis</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">Model Results</div>
+            <h1>Compare the trained Random Forest with measurable metrics.</h1>
+            <div class="hero-meta" aria-label="Project metadata">
+              <span>Last trained: 1 day ago</span>
+              <span>Dataset size: 6,000 transactions</span>
+            </div>
+            <p>
+              This page summarizes the trained Random Forest experiment in an executive-friendly way.
+              Precision, recall, and ROC-AUC matter more than plain accuracy in fraud detection because
+              the dataset is heavily imbalanced.
+            </p>
+            <p>
+              The model was trained on 6,000 generated transactions with 117 fraud cases. The best
+              operating point in the current run came from the baseline strategy with a tuned
+              threshold of 0.3214.
+            </p>
+          </div>
+
+          <aside class="hero-card dashboard-panel">
+            <div class="chart-card">
+              <div class="chart-top">
+                <h2>Best Strategy Snapshot</h2>
+                <span>Baseline RF</span>
+              </div>
+              <div class="bars">
+                <div class="bar-row"><span>Precision</span><div class="bar-track"><div class="bar-fill soft" style="width: 94.74%;"></div></div><span>0.9474</span></div>
+                <div class="bar-row"><span>Recall</span><div class="bar-track"><div class="bar-fill good" style="width: 62.07%;"></div></div><span>0.6207</span></div>
+                <div class="bar-row"><span>ROC-AUC</span><div class="bar-track"><div class="bar-fill warn" style="width: 99.68%;"></div></div><span>0.9968</span></div>
+              </div>
+              <p class="chart-note">
+                <strong>Interpretation:</strong> the current baseline favors precision while preserving
+                ranking quality, making it practical for staged review workflows.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container grid-2">
+          <article class="chart-panel">
+            <h3>Strategy ROC-AUC Comparison</h3>
+            <p>The higher the bar, the better the class separation across thresholds.</p>
+            <div class="chart-bars">
+              <div class="chart-bar-row"><span>Baseline</span><div class="chart-bar-track"><div class="chart-bar-fill" style="width: 99.68%;"></div></div><span>0.9968</span></div>
+              <div class="chart-bar-row"><span>Undersample</span><div class="chart-bar-track"><div class="chart-bar-fill warn" style="width: 99.40%;"></div></div><span>0.9940</span></div>
+              <div class="chart-bar-row"><span>Oversample</span><div class="chart-bar-track"><div class="chart-bar-fill soft" style="width: 99.64%;"></div></div><span>0.9964</span></div>
+              <div class="chart-bar-row"><span>SMOTE</span><div class="chart-bar-track"><div class="chart-bar-fill good" style="width: 99.46%;"></div></div><span>0.9946</span></div>
+            </div>
+          </article>
+          <article class="chart-panel">
+            <h3>Strategy Recall Comparison</h3>
+            <p>The bars show the capture rate of fraud cases after each sampling approach.</p>
+            <div class="chart-bars">
+              <div class="chart-bar-row"><span>Baseline</span><div class="chart-bar-track"><div class="chart-bar-fill" style="width: 62.07%;"></div></div><span>0.6207</span></div>
+              <div class="chart-bar-row"><span>Undersample</span><div class="chart-bar-track"><div class="chart-bar-fill warn" style="width: 96.55%;"></div></div><span>0.9655</span></div>
+              <div class="chart-bar-row"><span>Oversample</span><div class="chart-bar-track"><div class="chart-bar-fill soft" style="width: 62.07%;"></div></div><span>0.6207</span></div>
+              <div class="chart-bar-row"><span>SMOTE</span><div class="chart-bar-track"><div class="chart-bar-fill good" style="width: 82.76%;"></div></div><span>0.8276</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container grid-2">
+          <article class="card">
+            <h3>Confusion Matrix View</h3>
+            <div class="matrix">
+              <div class="matrix-cell"><strong>True Negatives</strong><span>1,469</span></div>
+              <div class="matrix-cell"><strong>False Positives</strong><span>2</span></div>
+              <div class="matrix-cell"><strong>False Negatives</strong><span>4</span></div>
+              <div class="matrix-cell"><strong>True Positives</strong><span>25</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Business Threshold Guidance</h3>
+            <p>
+              The baseline strategy currently balances precision at 0.9474 with recall at 0.6207.
+              If the organization wants higher capture, use the undersampled or SMOTE strategy and
+              lower the threshold. If customer friction is the bigger issue, stay near the tuned
+              baseline threshold or increase it slightly.
+            </p>
+            <div class="insight-box" style="margin-top: 1rem;">
+              <strong>Best operating point</strong>
+              <p>Baseline Random Forest, threshold 0.3214, ROC-AUC 0.9968</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="line">
+          <span>Results</span>
+          <span>Precision, recall, ROC-AUC, and threshold-centered decision making</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

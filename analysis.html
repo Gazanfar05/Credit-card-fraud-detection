@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analysis | Credit Card Fraud Detection</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="container">
+        <div class="brand-row">
+          <div class="brand">
+            <strong>Credit Card Fraud Detection</strong>
+            <span>EDA, sampling, and dataset management</span>
+            <div class="status-badge" aria-label="Model status">
+              <span class="status-dot"></span>
+              Model Ready
+            </div>
+          </div>
+          <nav class="nav" aria-label="Primary">
+            <a href="index.html">Home</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="results.html">Results</a>
+            <a href="predictor.html">Predictor</a>
+            <a class="active" href="analysis.html">Analysis</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">Data Analysis</div>
+            <h1>Understand the dataset before trusting the model.</h1>
+            <div class="hero-meta" aria-label="Project metadata">
+              <span>Last trained: 1 day ago</span>
+              <span>Dataset size: 6,000 transactions</span>
+            </div>
+            <p>
+              Fraud detection starts with exploration. You need to inspect class imbalance,
+              transaction distributions, feature patterns, and how sampling methods change the
+              learning signal before judging model quality.
+            </p>
+            <p>
+              The project includes a generated dataset of 6,000 transactions, 117 fraud cases,
+              and 8 numeric features. You can also swap in a different CSV for future experiments.
+            </p>
+          </div>
+
+          <aside class="hero-card dashboard-panel">
+            <div class="chart-card">
+              <div class="chart-top">
+                <h2>Sampling Comparison</h2>
+                <span>Training recall</span>
+              </div>
+              <div class="bars">
+                <div class="bar-row"><span>Baseline</span><div class="bar-track"><div class="bar-fill" style="width: 62.07%;"></div></div><span>0.6207</span></div>
+                <div class="bar-row"><span>Under</span><div class="bar-track"><div class="bar-fill warn" style="width: 96.55%;"></div></div><span>0.9655</span></div>
+                <div class="bar-row"><span>Over</span><div class="bar-track"><div class="bar-fill soft" style="width: 62.07%;"></div></div><span>0.6207</span></div>
+                <div class="bar-row"><span>SMOTE</span><div class="bar-track"><div class="bar-fill good" style="width: 82.76%;"></div></div><span>0.8276</span></div>
+              </div>
+              <p class="chart-note">
+                <strong>Analysis takeaway:</strong> no single sampling method dominates all goals, so model
+                selection should match whether the business prioritizes capture rate or false-alert control.
+              </p>
+            </div>
+          </aside>
+        </div>
+            </section>
+
+      <section class="section">
+        <div class="container grid-2">
+          <article class="card">
+            <h3>EDA Highlights</h3>
+            <p>
+              Check the transaction amount distribution, time-based variation, and feature skewness.
+              In this dataset, the amount feature emerged as the strongest predictor, followed by
+              f6, f4, f1, and f3.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Sampling Tradeoffs</h3>
+            <p>
+              Undersampling improves balance quickly and pushed recall to 0.9655 in this run, though
+              precision dropped sharply. SMOTE produced a more balanced middle ground, while the
+              baseline model kept the best precision.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container grid-2">
+          <article class="card">
+            <h3>Import a Dataset</h3>
+            <p>
+              Replace the default fraud dataset with another CSV if you want to test the same ML flow
+              on a new source. This keeps the project flexible for future experiments.
+            </p>
+            <div style="margin-top: 1rem; padding: 1rem; border: 1px dashed rgba(17,36,63,0.2); border-radius: 18px; background: rgba(255,255,255,0.6);">
+              <strong style="display:block; color: var(--navy); margin-bottom:0.4rem;">Upload CSV</strong>
+              <input id="datasetFile" type="file" accept=".csv" style="display:block; width:100%; margin:0.6rem 0 0.75rem; font-family:'Times New Roman', Times, serif;" />
+              <span id="datasetStatus" style="color: var(--muted);">Add your own structured transaction dataset in CSV form during implementation.</span>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Decision Guidance</h3>
+            <p>
+              Use a lower threshold when recall matters most and missed fraud is expensive. Use a
+              higher threshold when review resources are tight and customer experience must remain
+              smooth. The current trained baseline uses a threshold of 0.3214.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container grid-2">
+          <article class="chart-panel">
+            <h3>Feature Importance</h3>
+            <p>The trained baseline model is driven mostly by amount and a small subset of synthetic features.</p>
+            <div class="chart-bars">
+              <div class="chart-bar-row"><span>amount</span><div class="chart-bar-track"><div class="chart-bar-fill" style="width: 100%;"></div></div><span>0.4670</span></div>
+              <div class="chart-bar-row"><span>f6</span><div class="chart-bar-track"><div class="chart-bar-fill good" style="width: 38.2%;"></div></div><span>0.1782</span></div>
+              <div class="chart-bar-row"><span>f4</span><div class="chart-bar-track"><div class="chart-bar-fill warn" style="width: 18.6%;"></div></div><span>0.0867</span></div>
+              <div class="chart-bar-row"><span>f1</span><div class="chart-bar-track"><div class="chart-bar-fill soft" style="width: 17.5%;"></div></div><span>0.0816</span></div>
+              <div class="chart-bar-row"><span>f3</span><div class="chart-bar-track"><div class="chart-bar-fill" style="width: 15.6%;"></div></div><span>0.0727</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Dataset Summary</h3>
+            <div class="matrix">
+              <div class="matrix-cell"><strong>Rows</strong><span>6,000</span></div>
+              <div class="matrix-cell"><strong>Fraud Cases</strong><span>117</span></div>
+              <div class="matrix-cell"><strong>Fraud Rate</strong><span>1.95%</span></div>
+              <div class="matrix-cell"><strong>Features</strong><span>8</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const datasetInput = document.getElementById('datasetFile');
+      const datasetStatus = document.getElementById('datasetStatus');
+
+      if (datasetInput && datasetStatus) {
+        datasetInput.addEventListener('change', () => {
+          const fileName = datasetInput.files && datasetInput.files.length > 0 ? datasetInput.files[0].name : 'No file selected';
+          datasetStatus.textContent = fileName === 'No file selected'
+            ? 'Add your own structured transaction dataset in CSV form during implementation.'
+            : `Selected dataset: ${fileName}`;
+        });
+      }
+    </script>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="line">
+          <span>Analysis</span>
+          <span>EDA, class imbalance, sampling, and dataset flexibility</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

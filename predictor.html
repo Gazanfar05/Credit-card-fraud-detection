@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Predictor | Credit Card Fraud Detection</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="container">
+        <div class="brand-row">
+          <div class="brand">
+            <strong>Credit Card Fraud Detection</strong>
+            <span>Live transaction prediction from the trained model</span>
+            <div class="status-badge" aria-label="Model status">
+              <span class="status-dot"></span>
+              Model Ready
+            </div>
+          </div>
+          <nav class="nav" aria-label="Primary">
+            <a href="index.html">Home</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="results.html">Results</a>
+            <a class="active" href="predictor.html">Predictor</a>
+            <a href="analysis.html">Analysis</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">Fraud Risk Predictor</div>
+            <h1>Check whether a transaction is fraudulent or genuine.</h1>
+            <div class="hero-meta" aria-label="Project metadata">
+              <span>Last trained: 1 day ago</span>
+              <span>Dataset size: 6,000 transactions</span>
+            </div>
+            <p>
+              Enter a transaction profile and let the trained model estimate fraud risk. The page
+              uses the model trained from the included dataset and returns a live prediction with a
+              threshold-aware decision.
+            </p>
+            <p>
+              The feature names match the project dataset: amount, time, and synthetic transaction
+              indicators f1 through f6. This keeps the predictor aligned with the training pipeline.
+            </p>
+          </div>
+
+          <aside class="hero-card dashboard-panel">
+            <div class="chart-card">
+              <div class="chart-top">
+                <h2>Model Snapshot</h2>
+                <span>Loaded from training summary</span>
+              </div>
+              <div class="bars" id="snapshotBars">
+                <div class="bar-row"><span>RF</span><div class="bar-track"><div class="bar-fill" style="width: 80%;"></div></div><span>--</span></div>
+                <div class="bar-row"><span>SMOTE</span><div class="bar-track"><div class="bar-fill good" style="width: 84%;"></div></div><span>--</span></div>
+                <div class="bar-row"><span>Threshold</span><div class="bar-track"><div class="bar-fill warn" style="width: 76%;"></div></div><span>--</span></div>
+              </div>
+              <p class="chart-note">
+                <strong>Scoring note:</strong> probabilities are converted to fraud or genuine using the
+                trained threshold, so prediction output is tied directly to business risk tolerance.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container predictor-grid">
+          <article class="card predictor-form">
+            <h3>Transaction Inputs</h3>
+            <p>Use numeric values for each feature. The model will compare the resulting probability to its trained threshold.</p>
+            <div class="field-grid">
+              <div class="field"><label for="amount">Amount</label><input id="amount" type="number" step="any" value="120" /></div>
+              <div class="field"><label for="time">Time</label><input id="time" type="number" step="any" value="3600" /></div>
+              <div class="field"><label for="f1">f1</label><input id="f1" type="number" step="any" value="0.2" /></div>
+              <div class="field"><label for="f2">f2</label><input id="f2" type="number" step="any" value="-0.4" /></div>
+              <div class="field"><label for="f3">f3</label><input id="f3" type="number" step="any" value="1.1" /></div>
+              <div class="field"><label for="f4">f4</label><input id="f4" type="number" step="any" value="0.5" /></div>
+              <div class="field"><label for="f5">f5</label><input id="f5" type="number" step="any" value="-0.7" /></div>
+              <div class="field"><label for="f6">f6</label><input id="f6" type="number" step="any" value="0.9" /></div>
+            </div>
+            <button class="button primary" id="predictButton" type="button">Predict Transaction</button>
+            <p id="formMessage" class="result-subtext">Prediction runs against the local trained model served from the project.</p>
+          </article>
+
+          <aside class="predictor-result">
+            <div class="result-banner">
+              <strong>Prediction Result</strong>
+              <div id="predictionLabel" class="result-value">Awaiting input</div>
+              <div id="predictionProbability" class="result-subtext">Probability will appear here after prediction.</div>
+            </div>
+            <div class="card">
+              <h3>Decision Notes</h3>
+              <div class="pill-row" id="decisionPills">
+                <span class="pill">Precision first</span>
+                <span class="pill">Recall-aware</span>
+                <span class="pill">Threshold-based</span>
+              </div>
+              <p id="decisionText" style="margin-top: 1rem; color: var(--muted);">
+                The trained threshold controls whether the transaction is flagged as fraud or cleared as genuine.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Model Summary</h3>
+              <div class="matrix" id="summaryMatrix">
+                <div class="matrix-cell"><strong>Dataset Size</strong><span id="datasetSize">Loading...</span></div>
+                <div class="matrix-cell"><strong>Fraud Rate</strong><span id="fraudRate">Loading...</span></div>
+                <div class="matrix-cell"><strong>Best Strategy</strong><span id="bestStrategy">Loading...</span></div>
+                <div class="matrix-cell"><strong>Threshold</strong><span id="bestThreshold">Loading...</span></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const featureIds = ['amount', 'time', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6'];
+      let trainedThreshold = 0.5;
+      const fallbackSummary = {
+        dataset: { rows: 6000, fraud_rate: 0.0195 },
+        best_strategy: 'baseline',
+        best_metrics: { precision: 0.9474, recall: 0.6207, roc_auc: 0.9968, threshold: 0.3214 },
+      };
+
+      function applySummary(summary) {
+        document.getElementById('datasetSize').textContent = `${summary.dataset.rows.toLocaleString()} rows`;
+        document.getElementById('fraudRate').textContent = `${(summary.dataset.fraud_rate * 100).toFixed(2)}%`;
+        document.getElementById('bestStrategy').textContent = summary.best_strategy.toUpperCase();
+        document.getElementById('bestThreshold').textContent = summary.best_metrics.threshold.toFixed(4);
+        trainedThreshold = summary.best_metrics.threshold;
+        const best = summary.best_metrics;
+        const snapshotBars = document.getElementById('snapshotBars');
+        if (snapshotBars) {
+          snapshotBars.innerHTML = `
+            <div class="bar-row"><span>Precision</span><div class="bar-track"><div class="bar-fill soft" style="width: ${Math.min(best.precision * 100, 100)}%;"></div></div><span>${best.precision.toFixed(2)}</span></div>
+            <div class="bar-row"><span>Recall</span><div class="bar-track"><div class="bar-fill good" style="width: ${Math.min(best.recall * 100, 100)}%;"></div></div><span>${best.recall.toFixed(2)}</span></div>
+            <div class="bar-row"><span>ROC-AUC</span><div class="bar-track"><div class="bar-fill warn" style="width: ${Math.min(best.roc_auc * 100, 100)}%;"></div></div><span>${best.roc_auc.toFixed(2)}</span></div>
+          `;
+        }
+      }
+
+      async function loadSummary() {
+        try {
+          if (window.location.protocol === 'file:') {
+            applySummary(fallbackSummary);
+            return;
+          }
+          const response = await fetch('/api/model-summary');
+          if (!response.ok) {
+            applySummary(fallbackSummary);
+            return;
+          }
+          const summary = await response.json();
+          applySummary(summary);
+        } catch (error) {
+          console.error(error);
+          applySummary(fallbackSummary);
+        }
+      }
+
+      async function predict() {
+        const payload = {};
+        for (const id of featureIds) {
+          const value = Number(document.getElementById(id).value);
+          if (Number.isNaN(value)) {
+            document.getElementById('formMessage').textContent = `Feature ${id} must be a valid number.`;
+            return;
+          }
+          payload[id] = value;
+        }
+
+        const button = document.getElementById('predictButton');
+        button.disabled = true;
+        button.textContent = 'Predicting...';
+        try {
+          const response = await fetch('/api/predict', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data?.message || 'Prediction request failed');
+          }
+          document.getElementById('predictionLabel').textContent = data.prediction;
+          document.getElementById('predictionProbability').textContent = `Fraud probability: ${data.probability.toFixed(4)} | Model threshold: ${data.threshold.toFixed(4)}`;
+          document.getElementById('decisionText').textContent = data.prediction === 'Fraud'
+            ? 'The model score crossed the operating threshold, so the transaction should be reviewed or blocked according to policy.'
+            : 'The model score stayed below the operating threshold, so the transaction is currently treated as genuine.';
+          document.getElementById('formMessage').textContent = `Risk score: ${data.risk_score.toFixed(2)}%`;
+        } catch (error) {
+          document.getElementById('predictionLabel').textContent = 'Prediction unavailable';
+          document.getElementById('predictionProbability').textContent = error.message;
+          document.getElementById('formMessage').textContent = 'Make sure the HTTPS server and trained model are running.';
+        } finally {
+          button.disabled = false;
+          button.textContent = 'Predict Transaction';
+        }
+      }
+
+      document.getElementById('predictButton').addEventListener('click', predict);
+      loadSummary();
+    </script>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="line">
+          <span>Predictor</span>
+          <span>Real-time fraud or genuine classification from the trained model</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

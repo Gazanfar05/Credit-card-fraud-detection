@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works | Credit Card Fraud Detection</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="container">
+        <div class="brand-row">
+          <div class="brand">
+            <strong>Credit Card Fraud Detection</strong>
+            <span>Workflow, sampling, and model training</span>
+            <div class="status-badge" aria-label="Model status">
+              <span class="status-dot"></span>
+              Model Ready
+            </div>
+          </div>
+          <nav class="nav" aria-label="Primary">
+            <a href="index.html">Home</a>
+            <a class="active" href="how-it-works.html">How It Works</a>
+            <a href="results.html">Results</a>
+            <a href="predictor.html">Predictor</a>
+            <a href="analysis.html">Analysis</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">How the ML Pipeline Works</div>
+            <h1>From raw transactions to a trained fraud detector.</h1>
+            <div class="hero-meta" aria-label="Project metadata">
+              <span>Last trained: 1 day ago</span>
+              <span>Dataset size: 6,000 transactions</span>
+            </div>
+            <p>
+              The workflow begins with exploratory analysis, then moves into class balancing,
+              feature preparation, model training, and threshold selection. The purpose is to help
+              the model learn from rare fraud patterns without becoming biased by the majority class.
+            </p>
+            <p>
+              This page treats the model as a system: each step improves the next step, and each chart
+              below explains why the project uses imbalanced-learning methods before model comparison.
+            </p>
+          </div>
+
+          <aside class="hero-card dashboard-panel">
+            <div class="chart-card">
+              <div class="chart-top">
+                <h2>Workflow Progress</h2>
+                <span>Conceptual pipeline</span>
+              </div>
+              <div class="bars">
+                <div class="bar-row"><span>EDA</span><div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div><span>Done</span></div>
+                <div class="bar-row"><span>Sampling</span><div class="bar-track"><div class="bar-fill soft" style="width: 88%;"></div></div><span>High</span></div>
+                <div class="bar-row"><span>Training</span><div class="bar-track"><div class="bar-fill good" style="width: 80%;"></div></div><span>RF</span></div>
+                <div class="bar-row"><span>Threshold</span><div class="bar-track"><div class="bar-fill warn" style="width: 72%;"></div></div><span>Review</span></div>
+              </div>
+              <p class="chart-note">
+                <strong>Pipeline intent:</strong> each stage reduces bias from class imbalance and keeps
+                the final model usable for real-world fraud operations.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2>Workflow Stages</h2>
+            <p>Each stage is designed to reduce bias introduced by the heavy class imbalance and to make the final model decision-ready.</p>
+          </div>
+          <div class="pipeline">
+            <div class="step"><strong>1. Explore</strong><span>Inspect distributions, correlations, and outliers.</span></div>
+            <div class="step"><strong>2. Balance</strong><span>Apply undersampling, oversampling, or SMOTE.</span></div>
+            <div class="step"><strong>3. Train</strong><span>Fit the Random Forest model on sampled data.</span></div>
+            <div class="step"><strong>4. Compare</strong><span>Check precision, recall, and ROC-AUC.</span></div>
+            <div class="step"><strong>5. Tune</strong><span>Select the best business threshold.</span></div>
+            <div class="step"><strong>6. Deploy</strong><span>Use the risk score for alerting and review.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container grid-2">
+          <article class="card">
+            <h3>Sampling Logic</h3>
+            <p>
+              Undersampling reduces the number of majority-class examples so the classifier cannot
+              ignore the fraud class. Oversampling duplicates or expands the minority class. SMOTE
+              creates synthetic minority points so the boundary becomes more informative.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Model Choice</h3>
+            <p>
+              Random Forest is a strong and stable baseline for the current build. It works well for
+              fraud detection because it captures complex relationships without requiring manual feature
+              equations.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="line">
+          <span>How It Works</span>
+          <span>ML workflow, sampling approaches, and threshold selection</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

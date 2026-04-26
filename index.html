@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<title>Credit Card Fraud Detection | Home</title>
+			<link rel="stylesheet" href="style.css" />
+			<script defer src="app.js"></script>
+</head>
+<body>
+	<div class="page">
+		<header class="topbar">
+			<div class="container">
+				<div class="brand-row">
+					<div class="brand">
+						<strong>Credit Card Fraud Detection</strong>
+            <span>Machine learning project with imbalanced data modeling</span>
+						<div class="status-badge" aria-label="Model status">
+							<span class="status-dot"></span>
+							Model Ready
+						</div>
+					</div>
+					<nav class="nav" aria-label="Primary">
+            <a class="active" href="index.html">Home</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="results.html">Results</a>
+						<a href="predictor.html">Predictor</a>
+            <a href="analysis.html">Analysis</a>
+					</nav>
+				</div>
+			</div>
+		</header>
+
+		<main>
+			<section class="hero">
+				<div class="container hero-grid">
+					<div class="hero-copy">
+            <div class="eyebrow">Machine Learning Project</div>
+						<h1>Detect fraud with precision, speed, and business clarity.</h1>
+						<div class="hero-meta" aria-label="Project metadata">
+							<span>Last trained: 1 day ago</span>
+							<span>Dataset size: 6,000 transactions</span>
+						</div>
+						<p>
+							This project explores a highly imbalanced credit-card fraud dataset, applies exploratory
+							data analysis, compares undersampling, oversampling, and SMOTE, and evaluates a trained
+							Random Forest model.
+						</p>
+						<p>
+							Use the menu bar to move between workflow, results, analysis, and live prediction pages.
+							Each page is a separate destination designed for clear, professional project storytelling.
+						</p>
+						<div class="hero-actions">
+              <a class="button primary" href="how-it-works.html">Start with How It Works</a>
+              <a class="button secondary" href="predictor.html">Open Predictor</a>
+              <a class="button secondary" href="results.html">View Model Results</a>
+						</div>
+					</div>
+
+					<aside class="hero-card dashboard-panel" aria-label="Project snapshot">
+						<div class="snapshot-card">
+							<div class="chart-top">
+								<h2>Model Snapshot</h2>
+								<span>Random Forest</span>
+							</div>
+							<div class="metric-list" aria-label="Model metrics">
+								<div class="metric-item">
+									<div class="metric-icon" aria-hidden="true">
+										<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M4 14l4-4 4 3 6-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+									</div>
+									<div class="metric-copy">
+										<strong>Precision</strong>
+										<span>High Precision</span>
+									</div>
+									<div class="metric-value">0.9474</div>
+									<div class="metric-track"><div class="metric-fill animated-bar" data-width="94.74%"></div></div>
+								</div>
+								<div class="metric-item">
+									<div class="metric-icon" aria-hidden="true">
+										<svg viewBox="0 0 24 24" role="img" focusable="false"><path d="M12 3v18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 9l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+									</div>
+									<div class="metric-copy">
+										<strong>Recall</strong>
+										<span>Balanced Performance</span>
+									</div>
+									<div class="metric-value">0.6207</div>
+									<div class="metric-track"><div class="metric-fill animated-bar" data-width="62.07%"></div></div>
+								</div>
+								<div class="metric-item">
+									<div class="metric-icon" aria-hidden="true">
+										<svg viewBox="0 0 24 24" role="img" focusable="false"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+									</div>
+									<div class="metric-copy">
+										<strong>ROC-AUC</strong>
+										<span>Strong Ranking Quality</span>
+									</div>
+									<div class="metric-value">0.9968</div>
+									<div class="metric-track"><div class="metric-fill animated-bar" data-width="99.68%"></div></div>
+								</div>
+							</div>
+							<p class="panel-note">
+								<strong>Operational read:</strong> Precision remains high while recall stays controlled,
+								which supports a low-noise fraud queue for analyst review.
+							</p>
+						</div>
+
+						<div class="chart-card imbalance-card">
+							<div class="chart-top">
+								<h2>Class Imbalance Snapshot</h2>
+								<span>Dataset distribution</span>
+							</div>
+							<div class="bars" aria-label="Class distribution chart">
+								<div class="bar-row">
+									<span>Legit</span>
+									<div class="bar-track"><div class="bar-fill animated-bar" data-width="99.83%"></div></div>
+									<span>99.83%</span>
+								</div>
+								<div class="bar-row">
+									<span>Fraud</span>
+									<div class="bar-track"><div class="bar-fill fraud animated-bar" data-width="0.17%"></div></div>
+									<span>0.17%</span>
+								</div>
+							</div>
+							<p class="chart-note">
+								<strong>Why this matters:</strong> The fraud class is tiny, so threshold and sampling strategy
+								have a direct impact on alert volume and missed-case risk.
+							</p>
+						</div>
+					</aside>
+				</div>
+			</section>
+
+			<section class="section">
+				<div class="container">
+					<div class="section-head">
+						<h2>Project Focus</h2>
+						<p>
+							The goal is not simply to classify transactions, but to build a decision-ready fraud
+							detection story that balances business cost, model quality, and operational thresholds.
+						</p>
+					</div>
+
+					<div class="grid-3">
+						<article class="card kpi">
+							<div class="index">01</div>
+							<div>
+								<h3>EDA</h3>
+								<p>Inspect class imbalance, feature ranges, and transaction patterns before training.</p>
+							</div>
+						</article>
+						<article class="card kpi">
+							<div class="index">02</div>
+							<div>
+								<h3>Sampling</h3>
+								<p>Compare undersampling, oversampling, and SMOTE to improve minority-class learning.</p>
+							</div>
+						</article>
+						<article class="card kpi">
+							<div class="index">03</div>
+							<div>
+								<h3>Evaluation</h3>
+								<p>Use precision, recall, and ROC-AUC to judge model usefulness under imbalance.</p>
+							</div>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<section class="section">
+				<div class="container grid-2">
+					<article class="card">
+						<h3>Trained Dataset</h3>
+						<p>
+							The project now includes a generated dataset of 6,000 transactions with 117 fraud cases
+							and 8 numeric features, allowing the model to train and predict inside the project.
+						</p>
+					</article>
+					<article class="card">
+						<h3>Live Predictor</h3>
+						<p>
+							The Predictor page connects to the trained model through the local HTTPS server and
+							classifies a user-entered transaction as fraud or genuine using the stored threshold.
+						</p>
+					</article>
+				</div>
+			</section>
+
+			<section class="section">
+				<div class="container grid-2">
+					<article class="card">
+						<h3>What You Will See Next</h3>
+						<p>
+							The How It Works page explains the pipeline, the Results page presents model
+							comparisons with charts, and the Analysis page focuses on EDA, sampling, and dataset
+							flexibility.
+						</p>
+					</article>
+					<article class="card">
+						<h3>Business Context</h3>
+						<p>
+							The model should be treated as a risk-ranking system. The final operating threshold
+							depends on the cost of missed fraud, manual review capacity, and customer experience.
+						</p>
+					</article>
+				</div>
+			</section>
+		</main>
+
+		<footer class="footer">
+			<div class="container">
+				<div class="line">
+					<span>Credit Card Fraud Detection Project</span>
+					<span>Menu-driven pages for workflow, results, and analysis</span>
+				</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
